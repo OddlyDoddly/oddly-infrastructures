@@ -14,8 +14,9 @@ export class BaseWebClientError extends Error {
     this.name = 'BaseWebClientError';
     
     // Maintains proper stack trace for where our error was thrown (only available on V8)
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, BaseWebClientError);
+    if ('captureStackTrace' in Error) {
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      (Error as { captureStackTrace: (target: object, constructor: Function) => void }).captureStackTrace(this, BaseWebClientError);
     }
   }
 }

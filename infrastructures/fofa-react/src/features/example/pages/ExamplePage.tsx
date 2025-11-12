@@ -44,23 +44,20 @@ export default function ExamplePage() {
           </Button>
         </div>
 
-        {/* Content */}
-        {isLoading && (
+        {isLoading ? (
           <div className="flex justify-center py-12">
             <Spinner size="lg" label="Loading items..." />
           </div>
-        )}
-
-        {error && (
+        ) : error ? (
           <Alert intent="destructive">
             <AlertTitle>Error</AlertTitle>
             <AlertDescription>
               Failed to load example items. Please try again later.
             </AlertDescription>
           </Alert>
-        )}
-
-        {items && <ExampleItemList items={items} onSelectItem={handleSelectItem} />}
+        ) : items ? (
+          <ExampleItemList items={items} onSelectItem={handleSelectItem} />
+        ) : null}
       </div>
     </Container>
   );
