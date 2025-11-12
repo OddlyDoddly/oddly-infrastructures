@@ -10,7 +10,7 @@
  * The application follows Domain-Driven Design (DDD) with CQRS pattern.
  */
 
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 
 // Import middleware
@@ -32,10 +32,10 @@ import { IExampleQueryRepository } from './infrastructure/repositories/IExampleQ
 import { ExampleCommandRepository } from './infrastructure/repositories/impl/ExampleCommandRepository';
 import { ExampleQueryRepository } from './infrastructure/repositories/impl/ExampleQueryRepository';
 import { IUnitOfWork } from './infrastructure/repositories/infra/IUnitOfWork';
-import { UnitOfWork } from './infrastructure/repositories/infra/UnitOfWork';
+// Note: UnitOfWork implementation should be created based on your database choice
 
-// Import mappers
-import { ExampleMapper } from './application/mappers/ExampleMapper';
+// Import mappers (used internally by services)
+// import { ExampleMapper } from './application/mappers/ExampleMapper';
 
 // Import event bus
 import { IEventPublisher } from './infrastructure/queues/infra/IEventPublisher';
@@ -56,7 +56,6 @@ class DependencyContainer {
     private _unitOfWork: IUnitOfWork;
     private _exampleCommandRepository: IExampleCommandRepository;
     private _exampleQueryRepository: IExampleQueryRepository;
-    private _exampleMapper: ExampleMapper;
     private _exampleService: IExampleService;
     private _exampleController: ExampleController;
 
@@ -64,21 +63,24 @@ class DependencyContainer {
         // Initialize event bus (singleton)
         this._eventBus = new InMemoryEventBus();
 
-        // Initialize Unit of Work
-        this._unitOfWork = new UnitOfWork();
+        // Initialize Unit of Work (placeholder - implement based on your database)
+        // TODO: Replace with actual UnitOfWork implementation
+        this._unitOfWork = {
+            BeginTransactionAsync: async () => {},
+            CommitAsync: async () => {},
+            RollbackAsync: async () => {},
+            SaveChangesAsync: async () => {},
+            Dispose: () => {}
+        } as IUnitOfWork;
 
         // Initialize repositories
-        this._exampleCommandRepository = new ExampleCommandRepository(this._unitOfWork);
+        this._exampleCommandRepository = new ExampleCommandRepository();
         this._exampleQueryRepository = new ExampleQueryRepository();
 
-        // Initialize mappers
-        this._exampleMapper = new ExampleMapper();
-
-        // Initialize services
+        // Initialize services (service expects 3 parameters)
         this._exampleService = new ExampleService(
             this._exampleCommandRepository,
             this._exampleQueryRepository,
-            this._exampleMapper,
             this._eventBus
         );
 
@@ -145,11 +147,10 @@ export function createServer(): Express {
     // CRITICAL: Middleware order matters! Follow the exact sequence below.
 
     // 1. Correlation ID - Tracks requests across services
-    app.use(CorrelationIdMiddleware);
+    app.use((p_req, p_res, p_next) => CorrelationIdMiddleware.Handle(p_req, p_res, p_next));
 
     // 2. Logging - Request/response logging
-    // TODO: Add logging middleware
-    app.use((p_req: Request, p_res: Response, p_next: NextFunction) => {
+    app.use((p_req, p_res, p_next) => {
         const startTime = Date.now();
         const correlationId = (p_req as any).correlationId || 'unknown';
         
@@ -165,20 +166,28 @@ export function createServer(): Express {
 
     // 3. Authentication - Verify user identity
     // TODO: Add authentication middleware
-    // app.use(AuthenticationMiddleware);
+    // app.use((p_req, p_res, p_next) => AuthenticationMiddleware.Handle(p_req, p_res, p_next));
 
     // 4. Authorization/Ownership - Verify permissions and resource ownership
-    app.use(OwnershipMiddleware);
+    // TODO: Implement actual ownership checker function
+    const ownershipChecker = async (_userId: string, _resourceId: string): Promise<boolean> => {
+        // Placeholder - always returns true
+        // In production, query database to verify ownership
+        return true;
+    };
+    const ownershipMiddleware = new OwnershipMiddleware(ownershipChecker);
+    app.use((p_req, p_res, p_next) => ownershipMiddleware.Handle(p_req, p_res, p_next));
 
     // 5. Unit of Work - Manage database transactions
-    app.use(UnitOfWorkMiddleware(container.unitOfWork));
+    const unitOfWorkMiddleware = new UnitOfWorkMiddleware(container.unitOfWork);
+    app.use((p_req, p_res, p_next) => unitOfWorkMiddleware.Handle(p_req, p_res, p_next));
 
     // ======================================
     // Register Routes
     // ======================================
 
     // Root endpoint
-    app.get('/', (p_req: Request, p_res: Response) => {
+    app.get('/', (_p_req, p_res) => {
         p_res.json({
             application: 'Oddly DDD Infrastructure',
             version: '1.0.0',
@@ -189,7 +198,7 @@ export function createServer(): Express {
     });
 
     // Health check endpoint
-    app.get('/health', (p_req: Request, p_res: Response) => {
+    app.get('/health', (_p_req, p_res) => {
         p_res.json({
             status: 'healthy',
             timestamp: new Date().toISOString()
@@ -225,10 +234,10 @@ export function createServer(): Express {
     // Error Handling Middleware (Must be last)
     // ======================================
 
-    app.use(ErrorHandlingMiddleware);
+    app.use((p_err: any, p_req: any, p_res: any, p_next: any) => ErrorHandlingMiddleware.Handle(p_err, p_req, p_res, p_next));
 
     // 404 handler
-    app.use((p_req: Request, p_res: Response) => {
+    app.use((p_req, p_res) => {
         p_res.status(404).json({
             error: {
                 code: 'NOT_FOUND',
