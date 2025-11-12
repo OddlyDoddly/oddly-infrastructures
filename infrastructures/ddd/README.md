@@ -34,16 +34,29 @@ These templates serve as:
 
 [📖 View C# Documentation](./csharp/README.md)
 
-### ⏳ TypeScript (Node.js)
-**Status**: Pending
+### ✅ TypeScript (Node.js)
+**Status**: Complete
 
-**Planned Features**:
-- Express.js or NestJS patterns
-- TypeScript strict mode
-- Decorators for DI
-- Similar CQRS implementation
-- Event-driven architecture
-- TypeORM or Prisma examples
+**Location**: `./typescript/`
+
+**Features**:
+- Full CQRS implementation with separate Write/Read entities
+- Express.js Web API patterns
+- TypeScript strict mode with comprehensive type safety
+- Comprehensive middleware pipeline
+- Event-driven subdomain communication
+- Type-safe error handling with ServiceException<TErrorCode>
+- Complete example implementations
+- Extensive documentation (README + ARCHITECTURE)
+
+**Technologies**:
+- Node.js 18+
+- TypeScript 5+
+- Express.js
+- Any ORM (TypeORM, Mongoose, Sequelize, Prisma, etc.)
+- Any message queue (RabbitMQ, Azure Service Bus, AWS SQS, etc.)
+
+[📖 View TypeScript Documentation](./typescript/README.md)
 
 ### ⏳ Python
 **Status**: Pending
@@ -327,4 +340,4 @@ These templates are provided as-is for use in your projects.
 
 ---
 
-**Current Status**: C# template complete. TypeScript, Python, and Java templates pending.
+**Current Status**: C# and TypeScript templates complete. Python and Java templates pending.
