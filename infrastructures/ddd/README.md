@@ -128,21 +128,24 @@ template/
     │   ├── dto/               # Request/Response DTOs
     │   └── middleware/        # Request pipeline
     ├── application/
-    │   ├── services/          # Use-case orchestration
+    │   ├── services/          # Service contracts
     │   │   └── impl/         # Service implementations
-    │   ├── mappers/          # Type transformations
+    │   ├── mappers/          # Mapper implementations
+    │   │   └── infra/        # Mapper base abstractions
     │   └── errors/           # Service exceptions
     ├── domain/
     │   ├── models/           # Business models (NO DB attributes)
     │   └── events/           # Domain events
     └── infrastructure/
-        ├── repositories/     # Data access
-        │   └── impl/        # Repository implementations
+        ├── repositories/     # Repository contracts
+        │   ├── impl/        # Repository implementations
+        │   └── infra/       # Repository base abstractions
         ├── persistence/     # Entities and contexts
         │   ├── write/      # WriteEntities (commands)
         │   └── read/       # ReadEntities (queries)
-        └── queues/         # Event publisher/subscriber
+        └── queues/         # Queue infrastructure
             ├── impl/       # Queue implementations
+            ├── infra/      # Queue base abstractions
             └── subscribers/ # Event handlers
 ```
 

@@ -6,7 +6,7 @@ using OddlyDdd.Application.Errors;
 using OddlyDdd.Application.Mappers;
 using OddlyDdd.Domain.Events;
 using OddlyDdd.Domain.Models;
-using OddlyDdd.Infrastructure.Queues;
+using OddlyDdd.Infrastructure.Queues.Infra;
 using OddlyDdd.Infrastructure.Repositories;
 
 namespace OddlyDdd.Application.Services.Impl

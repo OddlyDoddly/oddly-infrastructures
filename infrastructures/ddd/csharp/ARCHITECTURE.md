@@ -33,14 +33,16 @@ This template implements a complete Domain-Driven Design (DDD) architecture with
 - **Rules**: NO business logic (delegate to domain)
 
 #### Services
-- `IExampleService` - Service interface
+- `IExampleService` - Service contract interface (root directory)
 - `ExampleService` - Service implementation (in `/Impl`)
 - Orchestrates repositories, domain models, and events
+- Contract interfaces used for dependency injection
 
 #### Mappers
-- `IMapper<>` - Mapper interface
-- `ExampleMapper` - Transforms between DTOs ↔ BMOs ↔ Entities
+- `ExampleMapper` - Transforms between DTOs ↔ BMOs ↔ Entities (root directory)
+- `IMapper<>` - Base mapper interface (in `/Infra`)
 - **MANDATORY** for all type transformations
+- No `/Impl` folder needed (mappers don't have autowiring contracts)
 
 #### Errors
 - `ServiceException<TErrorCode>` - Base typed exception
@@ -84,12 +86,17 @@ This template implements a complete Domain-Driven Design (DDD) architecture with
 
 #### Repositories
 
-##### Interfaces
-- `ICommandRepository<TModel, TId>` - Command repository interface
-- `IQueryRepository<TReadEntity, TId>` - Query repository interface
-- `IExampleCommandRepository` - Example command repository
-- `IExampleQueryRepository` - Example query repository
+##### Contract Interfaces (Root Directory)
+- `IExampleCommandRepository` - Example command repository contract
+- `IExampleQueryRepository` - Example query repository contract
+- Used for dependency injection
+- Define service contracts
+
+##### Base Abstractions (in `/Infra`)
+- `ICommandRepository<TModel, TId>` - Base command repository interface
+- `IQueryRepository<TReadEntity, TId>` - Base query repository interface
 - `IUnitOfWork` - Transaction management
+- Generic base types shared across implementations
 
 ##### Implementations (in `/Impl`)
 - `ExampleCommandRepository` - Handles Create/Update/Delete
@@ -99,15 +106,16 @@ This template implements a complete Domain-Driven Design (DDD) architecture with
 
 #### Queues
 
-##### Interfaces
+##### Base Abstractions (in `/Infra`)
 - `IEventPublisher` - Publishes events to queue
 - `IEventSubscriber` - Subscribes to events from queue
+- Generic infrastructure interfaces
 
-##### Implementations
+##### Implementations (in `/Impl`)
 - `InMemoryEventBus` - Simple in-memory implementation
   - Replace with real queue in production (RabbitMQ, Azure Service Bus, etc.)
 
-##### Subscribers
+##### Subscribers (in `/Subscribers`)
 - `ExampleEventSubscriber` - Handles events from other subdomains
 - Processes events asynchronously
 

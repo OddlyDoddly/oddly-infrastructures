@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace OddlyDdd.Infrastructure.Repositories
+namespace OddlyDdd.Infrastructure.Repositories.Infra
 {
     /// <summary>
     /// Unit of Work pattern for managing transactions.

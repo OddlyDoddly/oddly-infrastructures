@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace OddlyDdd.Infrastructure.Queues
+namespace OddlyDdd.Infrastructure.Queues.Infra
 {
     /// <summary>
     /// Interface for publishing domain events to a message queue.

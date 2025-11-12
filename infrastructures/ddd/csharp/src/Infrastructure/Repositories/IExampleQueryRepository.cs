@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OddlyDdd.Infrastructure.Persistence.Read;
+using OddlyDdd.Infrastructure.Repositories.Infra;
 
 namespace OddlyDdd.Infrastructure.Repositories
 {

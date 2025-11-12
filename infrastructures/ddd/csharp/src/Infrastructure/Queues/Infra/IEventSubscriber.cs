@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace OddlyDdd.Infrastructure.Queues
+namespace OddlyDdd.Infrastructure.Queues.Infra
 {
     /// <summary>
     /// Interface for subscribing to domain events from a message queue.

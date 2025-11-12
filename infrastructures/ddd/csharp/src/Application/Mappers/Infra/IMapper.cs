@@ -1,4 +1,4 @@
-namespace OddlyDdd.Application.Mappers
+namespace OddlyDdd.Application.Mappers.Infra
 {
     /// <summary>
     /// Base interface for mappers that transform between different object types.

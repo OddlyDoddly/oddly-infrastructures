@@ -11,24 +11,67 @@ src/
 │   ├── Dto/V1/              # Request/Response DTOs
 │   └── Middleware/          # Security, UnitOfWork, auth, logging, errors
 ├── Application/
-│   ├── Services/            # Use-case orchestration - IExampleService
+│   ├── Services/            # Service contracts - IExampleService
 │   │   └── Impl/           # Service implementations - ExampleService
-│   ├── Mappers/            # DTO↔BMO↔Entity transformations - ExampleMapper
+│   ├── Mappers/            # Mapper implementations - ExampleMapper
+│   │   └── Infra/          # Mapper base abstractions - IMapper
 │   ├── Policies/           # Authorization, domain policies
 │   └── Errors/             # Service exceptions - ExampleServiceException
 ├── Domain/
 │   ├── Models/             # Business models (BMOs) - ExampleModel
 │   └── Events/             # Domain events - ExampleCreatedEvent
 └── Infrastructure/
-    ├── Repositories/       # Data access interfaces
-    │   └── Impl/          # Repository implementations
+    ├── Repositories/       # Repository contracts - IExampleCommandRepository
+    │   ├── Impl/          # Repository implementations - ExampleCommandRepository
+    │   └── Infra/         # Repository base abstractions - ICommandRepository, IUnitOfWork
     ├── Persistence/       # Entities and database contexts
     │   ├── Write/        # WriteEntities for commands - ExampleWriteEntity
     │   └── Read/         # ReadEntities for queries - ExampleReadEntity
-    ├── Queues/           # Event publisher/subscriber
-    │   ├── Impl/         # Event bus implementations
-    │   └── Subscribers/  # Event subscribers
+    ├── Queues/           # Queue infrastructure
+    │   ├── Impl/         # Queue implementations - InMemoryEventBus
+    │   ├── Infra/        # Queue base abstractions - IEventPublisher, IEventSubscriber
+    │   └── Subscribers/  # Event subscribers - ExampleEventSubscriber
     └── Integrations/     # External HTTP clients
+```
+
+## File Organization Pattern
+
+The codebase follows a specific pattern for organizing interfaces, implementations, and base abstractions:
+
+### Services & Repositories (Autowiring Contracts)
+- **Contract Interfaces** (e.g., `IExampleService`, `IExampleCommandRepository`) → Root directory
+  - These define the contract between layers
+  - Used for dependency injection
+- **Implementations** (e.g., `ExampleService`, `ExampleCommandRepository`) → `/Impl/` subdirectory
+  - Concrete implementations of the contracts
+
+### Mappers (No Autowiring)
+- **Implementations** (e.g., `ExampleMapper`) → Root directory
+  - Concrete mapper classes
+  - No `/Impl/` subdirectory needed
+- **Base Abstractions** (e.g., `IMapper`) → `/Infra/` subdirectory
+  - Generic interfaces and base types
+  - Not used for dependency injection contracts
+
+### Base Abstractions & Infrastructure
+- **Base Types** (e.g., `ICommandRepository`, `IEventPublisher`, `IUnitOfWork`) → `/Infra/` subdirectory
+  - Generic base interfaces
+  - Abstract base classes
+  - Infrastructure-level abstractions
+  - Shared across multiple implementations
+
+**Example Structure:**
+```
+/Repositories/
+  IExampleCommandRepository.cs    # Contract (DI)
+  IExampleQueryRepository.cs       # Contract (DI)
+  /Impl/
+    ExampleCommandRepository.cs    # Implementation
+    ExampleQueryRepository.cs      # Implementation
+  /Infra/
+    ICommandRepository.cs          # Base abstraction
+    IQueryRepository.cs            # Base abstraction
+    IUnitOfWork.cs                 # Base abstraction
 ```
 
 ## Key Architectural Patterns

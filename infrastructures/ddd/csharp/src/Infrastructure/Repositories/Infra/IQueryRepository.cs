@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OddlyDdd.Infrastructure.Repositories
+namespace OddlyDdd.Infrastructure.Repositories.Infra
 {
     /// <summary>
     /// Base interface for query repositories (read operations in CQRS).

@@ -1,4 +1,5 @@
 using OddlyDdd.Domain.Models;
+using OddlyDdd.Infrastructure.Repositories.Infra;
 
 namespace OddlyDdd.Infrastructure.Repositories
 {

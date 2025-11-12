@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using OddlyDdd.Infrastructure.Repositories;
+using OddlyDdd.Infrastructure.Repositories.Infra;
 
 namespace OddlyDdd.Api.Middleware
 {

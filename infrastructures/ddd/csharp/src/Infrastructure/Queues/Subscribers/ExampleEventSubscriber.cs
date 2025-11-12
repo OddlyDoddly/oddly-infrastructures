@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using OddlyDdd.Domain.Events;
+using OddlyDdd.Infrastructure.Queues.Infra;
 
 namespace OddlyDdd.Infrastructure.Queues.Subscribers
 {
