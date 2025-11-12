@@ -25,6 +25,11 @@ from api.middleware.unit_of_work_middleware import UnitOfWorkMiddleware
 # Import controllers
 from api.controllers.example_controller import ExampleController
 
+# Import DTOs
+from api.dto.requests.create_example_request import CreateExampleRequest
+from api.dto.requests.update_example_request import UpdateExampleRequest
+from api.dto.responses.example_response import ExampleResponse
+
 # Import services
 from application.services.i_example_service import IExampleService
 from application.services.impl.example_service import ExampleService
@@ -254,12 +259,58 @@ async def health_check():
 
 
 # Register example controller routes
+# Note: Example controller methods need to be wrapped as FastAPI routes
 # TODO: Replace with your actual controllers
-app.include_router(
-    container.example_controller.router,
-    prefix="/api/v1",
-    tags=["Examples"]
-)
+
+from fastapi import APIRouter, status
+
+example_router = APIRouter(prefix="/examples", tags=["Examples"])
+
+
+@example_router.post("/", status_code=status.HTTP_201_CREATED)
+async def create_example_route(p_request: CreateExampleRequest):
+    """Create a new example."""
+    return await container.example_controller.create_example(p_request)
+
+
+@example_router.get("/{p_id}", response_model=ExampleResponse)
+async def get_example_route(p_id: str):
+    """Get an example by ID."""
+    return await container.example_controller.get_example(p_id)
+
+
+@example_router.get("/", response_model=list)
+async def list_examples_route(p_skip: int = 0, p_take: int = 10):
+    """List examples with pagination."""
+    return await container.example_controller.list_examples(p_skip, p_take)
+
+
+@example_router.put("/{p_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def update_example_route(p_id: str, p_request: UpdateExampleRequest):
+    """Update an example."""
+    await container.example_controller.update_example(p_id, p_request)
+
+
+@example_router.delete("/{p_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_example_route(p_id: str):
+    """Delete an example."""
+    await container.example_controller.delete_example(p_id)
+
+
+@example_router.post("/{p_id}/activate", status_code=status.HTTP_204_NO_CONTENT)
+async def activate_example_route(p_id: str):
+    """Activate an example."""
+    await container.example_controller.activate_example(p_id)
+
+
+@example_router.post("/{p_id}/deactivate", status_code=status.HTTP_204_NO_CONTENT)
+async def deactivate_example_route(p_id: str):
+    """Deactivate an example."""
+    await container.example_controller.deactivate_example(p_id)
+
+
+# Include the router in the app
+app.include_router(example_router, prefix="/api/v1")
 
 
 # ======================================

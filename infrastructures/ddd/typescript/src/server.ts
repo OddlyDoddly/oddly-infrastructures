@@ -198,10 +198,28 @@ export function createServer(): Express {
 
     // Register example controller routes
     // TODO: Replace with your actual controllers
-    app.use('/api/v1/examples', (p_req: Request, p_res: Response, p_next: NextFunction) => {
-        container.exampleController.registerRoutes(app);
-        p_next();
-    });
+    const exampleController = container.exampleController;
+    
+    app.post('/api/v1/examples', (p_req, p_res, p_next) => 
+        exampleController.CreateExample(p_req, p_res, p_next));
+    
+    app.get('/api/v1/examples/:id', (p_req, p_res, p_next) => 
+        exampleController.GetExample(p_req, p_res, p_next));
+    
+    app.get('/api/v1/examples', (p_req, p_res, p_next) => 
+        exampleController.ListExamples(p_req, p_res, p_next));
+    
+    app.put('/api/v1/examples/:id', (p_req, p_res, p_next) => 
+        exampleController.UpdateExample(p_req, p_res, p_next));
+    
+    app.delete('/api/v1/examples/:id', (p_req, p_res, p_next) => 
+        exampleController.DeleteExample(p_req, p_res, p_next));
+    
+    app.post('/api/v1/examples/:id/activate', (p_req, p_res, p_next) => 
+        exampleController.ActivateExample(p_req, p_res, p_next));
+    
+    app.post('/api/v1/examples/:id/deactivate', (p_req, p_res, p_next) => 
+        exampleController.DeactivateExample(p_req, p_res, p_next));
 
     // ======================================
     // Error Handling Middleware (Must be last)
