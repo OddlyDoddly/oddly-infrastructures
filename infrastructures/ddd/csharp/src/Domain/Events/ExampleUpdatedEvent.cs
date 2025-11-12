@@ -1,3 +1,5 @@
+using OddlyDdd.Domain.Events.Infra;
+
 namespace OddlyDdd.Domain.Events
 {
     /// <summary>

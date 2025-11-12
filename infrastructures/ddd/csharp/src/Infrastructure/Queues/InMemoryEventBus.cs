@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using OddlyDdd.Infrastructure.Queues.Infra;
 
-namespace OddlyDdd.Infrastructure.Queues.Impl
+namespace OddlyDdd.Infrastructure.Queues
 {
     /// <summary>
     /// In-memory implementation of event bus for demonstration purposes.

@@ -1,6 +1,6 @@
 using System;
 
-namespace OddlyDdd.Infrastructure.Persistence.Write
+namespace OddlyDdd.Infrastructure.Persistence.Write.Infra
 {
     /// <summary>
     /// Base class for all write entities (command side of CQRS).

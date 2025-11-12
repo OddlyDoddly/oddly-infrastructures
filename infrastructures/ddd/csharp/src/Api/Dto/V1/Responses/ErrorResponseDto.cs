@@ -1,6 +1,6 @@
 using System;
 
-namespace OddlyDdd.Api.Dto.V1
+namespace OddlyDdd.Api.Dto.V1.Responses
 {
     /// <summary>
     /// Standard error response contract.

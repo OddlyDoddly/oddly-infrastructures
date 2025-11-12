@@ -1,6 +1,6 @@
 using System;
 
-namespace OddlyDdd.Infrastructure.Persistence.Read
+namespace OddlyDdd.Infrastructure.Persistence.Read.Infra
 {
     /// <summary>
     /// Base class for all read entities (query side of CQRS).

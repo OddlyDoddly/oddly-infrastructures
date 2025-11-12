@@ -1,4 +1,5 @@
 using System;
+using OddlyDdd.Infrastructure.Persistence.Read.Infra;
 
 namespace OddlyDdd.Infrastructure.Persistence.Read
 {

@@ -1,4 +1,5 @@
 using System;
+using OddlyDdd.Infrastructure.Persistence.Write.Infra;
 
 namespace OddlyDdd.Infrastructure.Persistence.Write
 {

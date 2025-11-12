@@ -1,6 +1,6 @@
 using System;
 
-namespace OddlyDdd.Domain.Events
+namespace OddlyDdd.Domain.Events.Infra
 {
     /// <summary>
     /// Base class for all domain events.

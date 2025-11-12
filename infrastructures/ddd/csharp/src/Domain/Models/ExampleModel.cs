@@ -1,4 +1,5 @@
 using System;
+using OddlyDdd.Domain.Models.Infra;
 
 namespace OddlyDdd.Domain.Models
 {

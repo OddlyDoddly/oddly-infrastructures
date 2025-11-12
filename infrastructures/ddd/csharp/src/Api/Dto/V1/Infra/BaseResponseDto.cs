@@ -1,4 +1,4 @@
-namespace OddlyDdd.Api.Dto.V1
+namespace OddlyDdd.Api.Dto.V1.Infra
 {
     /// <summary>
     /// Base class for all response DTOs.

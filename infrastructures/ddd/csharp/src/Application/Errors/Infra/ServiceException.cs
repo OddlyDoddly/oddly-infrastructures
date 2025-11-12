@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OddlyDdd.Application.Errors
+namespace OddlyDdd.Application.Errors.Infra
 {
     /// <summary>
     /// Base class for all service-level exceptions.

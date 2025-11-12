@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using OddlyDdd.Application.Errors.Infra;
 
 namespace OddlyDdd.Application.Errors
 {

@@ -1,6 +1,7 @@
 using System;
+using OddlyDdd.Api.Dto.V1.Infra;
 
-namespace OddlyDdd.Api.Dto.V1
+namespace OddlyDdd.Api.Dto.V1.Responses
 {
     /// <summary>
     /// Example response DTO for returning example data.

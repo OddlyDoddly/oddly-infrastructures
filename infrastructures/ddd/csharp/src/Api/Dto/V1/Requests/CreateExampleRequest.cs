@@ -1,11 +1,18 @@
 using System.ComponentModel.DataAnnotations;
+using OddlyDdd.Api.Dto.V1.Infra;
 
-namespace OddlyDdd.Api.Dto.V1
+namespace OddlyDdd.Api.Dto.V1.Requests
 {
     /// <summary>
-    /// Example request DTO for updating an example.
+    /// Example request DTO for creating an example.
+    /// Request DTOs:
+    /// - Live in /Api/Dto/
+    /// - Have Request suffix
+    /// - Used for HTTP transport only
+    /// - NO business logic
+    /// - Can have validation attributes for edge validation
     /// </summary>
-    public class UpdateExampleRequest : BaseRequestDto
+    public class CreateExampleRequest : BaseRequestDto
     {
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]

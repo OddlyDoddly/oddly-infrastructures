@@ -1,6 +1,6 @@
 using System;
 
-namespace OddlyDdd.Domain.Models
+namespace OddlyDdd.Domain.Models.Infra
 {
     /// <summary>
     /// Base class for all Business Model Objects (BMOs).

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace OddlyDdd.Api.Controllers
+namespace OddlyDdd.Api.Controllers.Infra
 {
     /// <summary>
     /// Base controller for all API controllers.

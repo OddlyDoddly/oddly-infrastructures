@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OddlyDdd.Api.Dto.V1;
+using OddlyDdd.Api.Controllers.Infra;
+using OddlyDdd.Api.Dto.V1.Requests;
+using OddlyDdd.Api.Dto.V1.Responses;
 using OddlyDdd.Application.Services;
 
 namespace OddlyDdd.Api.Controllers
