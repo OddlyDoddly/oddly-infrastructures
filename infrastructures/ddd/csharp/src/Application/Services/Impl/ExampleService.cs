@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OddlyDdd.Api.Dto.V1;
+using OddlyDdd.Api.Dto.V1.Requests;
+using OddlyDdd.Api.Dto.V1.Responses;
 using OddlyDdd.Application.Errors;
 using OddlyDdd.Application.Mappers;
 using OddlyDdd.Domain.Events;

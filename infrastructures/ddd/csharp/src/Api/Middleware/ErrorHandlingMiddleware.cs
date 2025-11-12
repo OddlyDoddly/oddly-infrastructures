@@ -4,8 +4,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using OddlyDdd.Api.Dto.V1;
+using OddlyDdd.Api.Dto.V1.Responses;
 using OddlyDdd.Application.Errors;
+using OddlyDdd.Application.Errors.Infra;
 
 namespace OddlyDdd.Api.Middleware
 {

@@ -1,4 +1,5 @@
-using OddlyDdd.Api.Dto.V1;
+using OddlyDdd.Api.Dto.V1.Requests;
+using OddlyDdd.Api.Dto.V1.Responses;
 using OddlyDdd.Application.Mappers.Infra;
 using OddlyDdd.Domain.Models;
 using OddlyDdd.Infrastructure.Persistence.Read;

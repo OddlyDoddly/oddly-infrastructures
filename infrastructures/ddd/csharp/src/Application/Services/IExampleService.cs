@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using OddlyDdd.Api.Dto.V1;
+using OddlyDdd.Api.Dto.V1.Requests;
+using OddlyDdd.Api.Dto.V1.Responses;
 
 namespace OddlyDdd.Application.Services
 {
