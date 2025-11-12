@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { Button } from '@/shared/ui/buttons'
 import { Input } from '@/shared/ui/inputs'
 import { useAuth } from '../hooks/use-auth'
+import { WebClientError, WebClientErrorCode } from '@/shared/webclients'
 
 /**
  * Login form validation schema
@@ -26,6 +27,7 @@ export interface LoginFormProps {
  * Feature UI component for login.
  * Uses react-hook-form + zod for validation.
  * Delegates auth logic to useAuth hook.
+ * Handles WebClientError exceptions for user-friendly messages.
  * 
  * @example
  * <LoginForm onSuccess={() => navigate('/dashboard')} />
@@ -44,12 +46,27 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
   
   const onSubmit = async (data: LoginFormData) => {
     setApiError(null)
-    const result = await login(data)
     
-    if (result.success) {
-      onSuccess?.()
-    } else {
-      setApiError(result.error || 'Login failed. Please try again.')
+    try {
+      const result = await login(data)
+      
+      if (result.success) {
+        onSuccess?.()
+      }
+    } catch (error) {
+      // Handle WebClientError with user-friendly messages
+      if (error instanceof WebClientError) {
+        // Use specific message for unauthorized
+        if (error.is(WebClientErrorCode.UNAUTHORIZED)) {
+          setApiError('Invalid email or password. Please try again.')
+        } else {
+          // Use generic user-friendly message for other errors
+          setApiError(error.getUserMessage())
+        }
+      } else {
+        // Fallback for unknown errors
+        setApiError('An unexpected error occurred. Please try again.')
+      }
     }
   }
   

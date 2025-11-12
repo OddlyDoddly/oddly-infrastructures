@@ -12,31 +12,34 @@ These templates serve as:
 
 ## Available Templates
 
-### ✅ React + Redux + Tailwind (v1.0.0)
+### ✅ React + TypeScript
 **Status**: Complete
 
-**Location**: `./oddly-react-frontend-v1.0.0/`
+**Location**: `./react-typescript/`
 
 **Features**:
 - Feature-first architecture (slice by feature)
-- Redux Toolkit + RTK Query for state management
+- **WebClient architecture** for ALL HTTP communication
+- Redux Toolkit for client state management
+- Axios-based WebClients with centralized error handling
 - Design token system with CSS variables
 - Tailwind CSS for styling
 - TypeScript strict mode
 - Comprehensive testing setup (Vitest + Testing Library)
 - Complete auth feature example
-- Extensive documentation (README + ARCHITECTURE)
+- Extensive documentation (README + ARCHITECTURE + WebClient guide)
 
 **Technologies**:
 - React 18.3+
 - TypeScript 5.3+
-- Redux Toolkit 2.2+ / RTK Query
+- Redux Toolkit 2.2+
+- Axios 1.6+ (via WebClients)
 - React Router 6.22+
 - Tailwind CSS 3.4+
 - Vite 5+
 - Vitest 1.3+
 
-[📖 View React Documentation](./oddly-react-frontend-v1.0.0/README.md)
+[📖 View React Documentation](./react-typescript/README.md)
 
 ### ⏳ Vue + Pinia + Tailwind
 **Status**: Pending

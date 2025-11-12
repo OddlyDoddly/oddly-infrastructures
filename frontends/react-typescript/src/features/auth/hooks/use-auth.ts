@@ -1,22 +1,32 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { setCredentials, clearCredentials } from '../model/auth-slice'
 import { selectAuth, selectUser, selectIsAuthenticated } from '../model/auth-selectors'
-import { useLoginMutation, useLogoutMutation } from '../api/auth-api'
+import { authApiService } from '../api/auth-api'
 import type { LoginCredentials } from '../model/auth-types'
+import { WebClientError, WebClientErrorCode } from '@/shared/webclients'
 
 /**
  * useAuth hook
  * 
  * Feature-level hook that orchestrates:
  * - Redux state access via selectors
- * - RTK Query mutations
+ * - AuthWebClient API calls via authApiService
  * - Action dispatching
+ * - WebClientError handling
  * 
  * Provides clean API for auth operations to UI components.
  * 
  * @example
  * const { login, logout, user, isAuthenticated } = useAuth()
+ * 
+ * try {
+ *   await login({ email, password })
+ * } catch (error) {
+ *   if (error instanceof WebClientError) {
+ *     showError(error.getUserMessage())
+ *   }
+ * }
  */
 export function useAuth() {
   const dispatch = useAppDispatch()
@@ -24,16 +34,18 @@ export function useAuth() {
   const user = useAppSelector(selectUser)
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
   
-  const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation()
-  const [logoutMutation] = useLogoutMutation()
+  const [isLoading, setIsLoading] = useState(false)
   
   /**
    * Login user
+   * 
+   * @throws WebClientError on failure
    */
   const login = useCallback(
     async (credentials: LoginCredentials) => {
+      setIsLoading(true)
       try {
-        const response = await loginMutation(credentials).unwrap()
+        const response = await authApiService.login(credentials.email, credentials.password)
         
         // Map DTO to domain model and update state
         dispatch(setCredentials({
@@ -49,23 +61,28 @@ export function useAuth() {
         
         return { success: true }
       } catch (error) {
-        console.error('Login failed:', error)
-        return { 
-          success: false, 
-          error: error instanceof Error ? error.message : 'Login failed' 
+        // WebClientError is thrown by request functions
+        // Re-throw for UI to handle
+        if (error instanceof WebClientError) {
+          console.error('Login failed:', error.toJSON())
         }
+        throw error
+      } finally {
+        setIsLoading(false)
       }
     },
-    [loginMutation, dispatch]
+    [dispatch]
   )
   
   /**
    * Logout user
+   * 
+   * @throws WebClientError on failure (but clears local state anyway)
    */
   const logout = useCallback(
     async () => {
       try {
-        await logoutMutation().unwrap()
+        await authApiService.logout()
         dispatch(clearCredentials())
         return { success: true }
       } catch (error) {
@@ -75,14 +92,14 @@ export function useAuth() {
         return { success: true } // Still successful locally
       }
     },
-    [logoutMutation, dispatch]
+    [dispatch]
   )
   
   return {
     // State
     user,
     isAuthenticated,
-    isLoading: auth.isLoading || isLoggingIn,
+    isLoading: auth.isLoading || isLoading,
     error: auth.error,
     
     // Actions
