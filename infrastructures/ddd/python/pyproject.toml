@@ -1,0 +1,83 @@
+[project]
+name = "oddly-ddd-python"
+version = "1.0.0"
+description = "DDD Infrastructure Template for Python"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+
+dependencies = [
+    # Core async support
+    "asyncio>=3.4.3",
+    
+    # Web frameworks (choose one)
+    "fastapi>=0.104.0",  # Recommended
+    "uvicorn[standard]>=0.24.0",  # ASGI server for FastAPI
+    # "flask>=3.0.0",  # Alternative
+    
+    # Data validation (for DTOs)
+    "pydantic>=2.5.0",
+    
+    # Database drivers (choose based on your database)
+    # MongoDB
+    # "motor>=3.3.0",  # Async MongoDB driver
+    # "pymongo>=4.6.0",  # Sync MongoDB driver
+    
+    # PostgreSQL
+    # "asyncpg>=0.29.0",  # Async PostgreSQL driver
+    # "psycopg2-binary>=2.9.9",  # Sync PostgreSQL driver
+    
+    # MySQL
+    # "aiomysql>=0.2.0",  # Async MySQL driver
+    
+    # ORM (choose based on preference)
+    # "sqlalchemy>=2.0.0",  # SQL ORM
+    # "sqlalchemy[asyncio]>=2.0.0",  # SQLAlchemy with async support
+    
+    # Message queues (choose based on your queue)
+    # "aio-pika>=9.3.0",  # RabbitMQ
+    # "aiokafka>=0.10.0",  # Kafka
+    # "aioboto3>=12.0.0",  # AWS SQS/SNS
+    # "aioredis>=2.0.1",  # Redis Pub/Sub
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "flake8>=6.1.0",
+    "mypy>=1.7.0",
+    "isort>=5.12.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

@@ -1,0 +1,45 @@
+# Core dependencies
+asyncio>=3.4.3
+
+# Web framework (FastAPI recommended)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Data validation
+pydantic>=2.5.0
+
+# Development dependencies
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+black>=23.0.0
+flake8>=6.1.0
+mypy>=1.7.0
+isort>=5.12.0
+
+# Database drivers (uncomment based on your needs)
+# MongoDB
+# motor>=3.3.0
+# pymongo>=4.6.0
+
+# PostgreSQL
+# asyncpg>=0.29.0
+# psycopg2-binary>=2.9.9
+# sqlalchemy[asyncio]>=2.0.0
+
+# MySQL
+# aiomysql>=0.2.0
+# sqlalchemy[asyncio]>=2.0.0
+
+# Message queues (uncomment based on your needs)
+# RabbitMQ
+# aio-pika>=9.3.0
+
+# Kafka
+# aiokafka>=0.10.0
+
+# AWS SQS/SNS
+# aioboto3>=12.0.0
+
+# Redis Pub/Sub
+# aioredis>=2.0.1
