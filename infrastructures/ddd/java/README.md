@@ -225,6 +225,14 @@ Status code mapping:
 
 ## Building and Running
 
+The application includes `OddlyDddApplication.java` as the main entry point with Spring Boot auto-configuration.
+
+### Prerequisites
+- Java 17 or later
+- Maven 3.6 or later
+
+### Build and Run
+
 ```bash
 # Build the project
 mvn clean install
@@ -232,9 +240,29 @@ mvn clean install
 # Run the application
 mvn spring-boot:run
 
+# The application will start on http://localhost:8080
+
 # Run tests
 mvn test
 ```
+
+### Available Endpoints
+
+Once running, you can access:
+- **Root**: `http://localhost:8080/` - (Configure in your controllers)
+- **Health**: Configure Spring Boot Actuator for health checks
+- **H2 Console**: `http://localhost:8080/h2-console` - Database console (in Development)
+- **Example API**: Configure your REST endpoints in controllers
+
+### Configuration
+
+The application is configured via `src/main/resources/application.properties`:
+- Server port
+- Database connection (H2, PostgreSQL, MySQL, etc.)
+- JPA/Hibernate settings
+- Logging levels
+- Security configuration
+- Custom application properties
 
 ## Usage in New Projects
 

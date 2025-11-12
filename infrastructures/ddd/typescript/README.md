@@ -276,6 +276,44 @@ Status code mapping:
 8. Configure middleware pipeline
 9. Build: `npm run build`
 
+## Running the Application
+
+The application includes `index.ts` as the main entry point and `server.ts` for Express configuration.
+
+### Prerequisites
+- Node.js 18 or later
+- npm or yarn
+
+### Build and Run
+
+```bash
+# Install dependencies
+npm install
+
+# Run in development mode (with auto-reload)
+npm run dev
+
+# Or build and run in production mode
+npm run build
+npm start
+
+# The application will start on http://localhost:3000
+```
+
+### Available Endpoints
+
+Once running, you can access:
+- **Root**: `http://localhost:3000/` - Application information
+- **Health**: `http://localhost:3000/health` - Health check endpoint
+- **Example API**: `http://localhost:3000/api/v1/examples` - Example CRUD endpoints
+
+### Configuration
+
+Configure the application via:
+- Environment variables (PORT, NODE_ENV, etc.)
+- Configuration files (create `config/` directory)
+- Command line arguments
+
 ## Dependencies
 
 This template is designed to work with:

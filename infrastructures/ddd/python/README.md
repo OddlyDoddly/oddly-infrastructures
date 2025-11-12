@@ -108,6 +108,33 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### Running the Application
+
+The application includes `main.py` as the entry point with FastAPI configuration.
+
+```bash
+# Make sure you're in the src directory
+cd src/
+
+# Run the application
+python main.py
+
+# Or use uvicorn directly
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+# The application will start on http://localhost:8000
+```
+
+### Available Endpoints
+
+Once running, you can access:
+- **Root**: `http://localhost:8000/` - Application information
+- **Health**: `http://localhost:8000/health` - Health check endpoint
+- **API Docs (Swagger)**: `http://localhost:8000/swagger` - Interactive API documentation
+- **API Docs (ReDoc)**: `http://localhost:8000/redoc` - Alternative API documentation
+- **OpenAPI Schema**: `http://localhost:8000/openapi.json` - OpenAPI specification
+- **Example API**: `http://localhost:8000/api/v1/examples` - Example CRUD endpoints
+
 ### Recommended Frameworks
 
 #### FastAPI (Recommended)

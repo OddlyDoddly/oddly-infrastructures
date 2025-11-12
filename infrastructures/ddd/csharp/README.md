@@ -367,6 +367,47 @@ This template is designed to work with:
 6. Register all services in dependency injection container
 7. Configure middleware pipeline
 
+## Running the Application
+
+The application includes a `Program.cs` entry point that bootstraps the ASP.NET Core web host.
+
+### Prerequisites
+- .NET 8.0 SDK or later
+
+### Build and Run
+
+```bash
+# Navigate to the src directory
+cd src/
+
+# Restore dependencies
+dotnet restore
+
+# Build the project
+dotnet build
+
+# Run the application
+dotnet run
+
+# The application will start on http://localhost:5000 (or https://localhost:5001)
+```
+
+### Available Endpoints
+
+Once running, you can access:
+- **Root**: `http://localhost:5000/` - Application information
+- **Health**: `http://localhost:5000/health` - Health check endpoint
+- **Swagger**: `http://localhost:5000/swagger` - API documentation (in Development mode)
+- **Example API**: `http://localhost:5000/api/v1/examples` - Example CRUD endpoints
+
+### Configuration
+
+The application can be configured via:
+- `appsettings.json` - Add this file for application configuration
+- `appsettings.Development.json` - Add for development-specific settings
+- Environment variables
+- Command line arguments
+
 ## License
 
 This template is provided as-is for use in your projects.
