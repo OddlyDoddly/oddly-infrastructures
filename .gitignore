@@ -1,0 +1,71 @@
+# Build outputs (MANDATORY)
+bin/
+obj/
+dist/
+out/
+build/
+target/
+*.dll
+*.exe
+*.so
+*.dylib
+*.pdb
+*.class
+*.pyc
+*.o
+
+# IDE/Editor (MANDATORY)
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Dependencies (MANDATORY)
+node_modules/
+packages/
+__pycache__/
+*.egg-info/
+venv/
+env/
+.env
+
+# OS/Caches (MANDATORY)
+.DS_Store
+Thumbs.db
+*.cache
+.nuget/
+
+# Python specific
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+
+# TypeScript/JavaScript specific
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Java specific
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+
+# .NET specific
+*.dbmdl
+*.jfm
+*.pfx
+*.publishsettings
+orleans.codegen.cs

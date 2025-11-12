@@ -1,0 +1,39 @@
+# Python DDD Infrastructure Template Dependencies
+# Install with: pip install -r requirements.txt
+
+# Web Framework (choose one based on project needs)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Async support
+aiofiles>=23.2.0
+
+# Database drivers (examples - install what you need)
+motor>=3.3.0  # MongoDB async
+asyncpg>=0.29.0  # PostgreSQL async
+aiomysql>=0.2.0  # MySQL async
+
+# Message Queue (examples - install what you need)
+aio-pika>=9.3.0  # RabbitMQ
+aiokafka>=0.10.0  # Kafka
+
+# Validation
+pydantic>=2.4.0
+email-validator>=2.1.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+httpx>=0.25.0  # For API testing
+
+# Code quality
+black>=23.10.0
+flake8>=6.1.0
+mypy>=1.6.0
+pylint>=3.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+python-jose[cryptography]>=3.3.0  # JWT
+passlib[bcrypt]>=1.7.4  # Password hashing
