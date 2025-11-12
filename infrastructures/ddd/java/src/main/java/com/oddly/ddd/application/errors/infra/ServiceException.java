@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Base class for all service-level exceptions.
  * All service exceptions MUST inherit from this class.
- * Pattern: Create {Object}ServiceException extends ServiceException&lt;{Object}ErrorCode&gt;
+ * Pattern: Create {Object}ServiceException extends ServiceException
  * Location: MUST be in /application/errors/ directory
  */
 public abstract class ServiceException extends RuntimeException {
@@ -19,60 +19,17 @@ public abstract class ServiceException extends RuntimeException {
      */
     public abstract Class<? extends Enum<?>> getErrorCodeType();
 
+    /**
+     * Gets optional structured details about the error
+     */
+    public abstract Map<String, Object> getDetails();
+
     protected ServiceException(String p_message) {
         super(p_message);
     }
 
     protected ServiceException(String p_message, Throwable p_cause) {
         super(p_message, p_cause);
-    }
-}
-
-/**
- * Generic base class for typed service exceptions.
- * 
- * @param <TErrorCode> The enum type representing error codes
- */
-abstract class TypedServiceException<TErrorCode extends Enum<TErrorCode>> extends ServiceException {
-    private final TErrorCode m_errorCode;
-    private final Map<String, Object> m_details;
-
-    protected TypedServiceException(
-            TErrorCode p_code,
-            Map<String, String> p_messageTemplates,
-            Map<String, Object> p_details) {
-        super(formatMessage(p_code, p_messageTemplates, p_details));
-        this.m_errorCode = p_code;
-        this.m_details = p_details;
-    }
-
-    protected TypedServiceException(
-            TErrorCode p_code,
-            Map<String, String> p_messageTemplates,
-            Map<String, Object> p_details,
-            Throwable p_cause) {
-        super(formatMessage(p_code, p_messageTemplates, p_details), p_cause);
-        this.m_errorCode = p_code;
-        this.m_details = p_details;
-    }
-
-    @Override
-    public Enum<?> getGenericErrorCode() {
-        return m_errorCode;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Class<? extends Enum<?>> getErrorCodeType() {
-        return (Class<? extends Enum<?>>) m_errorCode.getClass();
-    }
-
-    public TErrorCode getErrorCode() {
-        return m_errorCode;
-    }
-
-    public Map<String, Object> getDetails() {
-        return m_details;
     }
 
     /**
