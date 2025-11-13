@@ -1,0 +1,82 @@
+/**
+ * Theme Overrides
+ * 
+ * Theme-specific token overrides using [data-theme] attribute.
+ * Switch themes by setting data-theme on <html> or wrapper element.
+ */
+
+/* ====================================
+   LIGHT THEME (Default)
+   ==================================== */
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  
+  /* Uses tokens from tokens.css as-is */
+}
+
+/* ====================================
+   DARK THEME
+   ==================================== */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Base colors */
+  --color-bg: 222 47% 7%;
+  --color-fg: 210 40% 98%;
+  --color-muted: 215 16% 70%;
+  --color-muted-foreground: 215 16% 85%;
+  --color-border: 217 33% 17%;
+
+  /* Primary brand (adjusted for dark) */
+  --color-primary: 222 90% 66%;
+  --color-primary-foreground: 222 47% 11%;
+
+  /* Secondary */
+  --color-secondary: 217 33% 17%;
+  --color-secondary-foreground: 210 40% 98%;
+
+  /* Accent */
+  --color-accent: 217 33% 17%;
+  --color-accent-foreground: 210 40% 98%;
+
+  /* Semantic colors (adjusted for dark) */
+  --color-destructive: 0 84% 65%;
+  --color-destructive-foreground: 0 0% 100%;
+
+  --color-success: 142 76% 45%;
+  --color-success-foreground: 0 0% 100%;
+
+  --color-warning: 38 92% 60%;
+  --color-warning-foreground: 0 0% 100%;
+
+  --color-info: 199 89% 58%;
+  --color-info-foreground: 0 0% 100%;
+
+  /* Shadows (adjusted for dark) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* ====================================
+   BRAND THEME EXAMPLE (Emerald)
+   ==================================== */
+[data-theme='emerald'] {
+  --color-primary: 160 84% 39%;
+  --color-primary-foreground: 0 0% 100%;
+
+  --color-accent: 160 84% 39%;
+  --color-accent-foreground: 0 0% 100%;
+}
+
+/* ====================================
+   BRAND THEME EXAMPLE (Purple)
+   ==================================== */
+[data-theme='purple'] {
+  --color-primary: 271 91% 65%;
+  --color-primary-foreground: 0 0% 100%;
+
+  --color-accent: 271 91% 65%;
+  --color-accent-foreground: 0 0% 100%;
+}
